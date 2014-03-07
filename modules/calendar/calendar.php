@@ -820,6 +820,17 @@ class EF_Calendar extends EF_Module {
 		$can_modify = ( $this->current_user_can_modify_post( $post ) ) ? 'can_modify' : 'read_only';
 		$cache_key = $post->ID . $can_modify;
 		$cache_val = wp_cache_get( $cache_key, self::$post_li_html_cache_key );
+
+		/**
+		 * Temporarily disabled by Joe Hoyle
+		 *
+		 * There is an issue with shared cache data between users which means
+		 * Trash links to do not due to nonces only being usable by the
+		 * user it was generated for.
+		 *
+		 * See https://github.com/Automattic/Edit-Flow/issues/252
+		 */
+		$cache_val = false;
 		// Because $num is pertinent to the display of the post LI, need to make sure that's what's in cache
 		if ( is_array( $cache_val ) && $cache_val['num'] == $num ) {
 			return $cache_val['post_li_html'];
