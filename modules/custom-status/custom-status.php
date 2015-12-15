@@ -1520,7 +1520,7 @@ class EF_Custom_Status extends EF_Module {
 		}
 
 		$args['preview_id'] = $post->ID;
-		return add_query_arg( $args, home_url() );
+		return apply_filters( 'ef_custom_status_get_preview_link', add_query_arg( $args, home_url() ), $post, $args );
 	}
 
 	/**
